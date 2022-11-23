@@ -13,9 +13,10 @@ function replace_default(Alpine) {
         if (typeof template == "string") {
           templateElement = document.querySelector("template#" + template);
         }
-        if (template instanceof HTMLElement && template.tagname == "TEMPLATE") {
+        else if (template instanceof HTMLElement && template.tagname == "TEMPLATE") {
           templateElement = template;
         }
+
         if (templateElement) {
           let content = templateElement.content.cloneNode(true);
           el.replaceChildren(content);
