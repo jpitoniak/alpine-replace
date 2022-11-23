@@ -10,7 +10,7 @@ function replace_default(Alpine) {
     effect(() => {
       getTemplate((template) => {
         let templateElement;
-        if (typeof template == string) {
+        if (typeof template == "string") {
           templateElement = document.querySelector("template#" + template);
         }
         if (template instanceof HTMLElement && template.tagname == "TEMPLATE") {
