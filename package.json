@@ -1,0 +1,28 @@
+{
+  "name": "alpine-replace",
+  "version": "0.1.0",
+  "description": "An AlpineJS plugin to replace the contents of an element with a template",
+  "main": "./dist/module.cjs.js",
+  "unpkg": "./dist/cdn.min.js",
+  "module": "dist/module.esm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./scripts/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpitoniak/alpine-replace.git"
+  },
+  "keywords": [
+    "alpinejs"
+  ],
+  "author": "Jason Pitoniak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jpitoniak/alpine-replace/issues"
+  },
+  "homepage": "https://github.com/jpitoniak/alpine-replace#readme",
+  "devDependencies": {
+    "esbuild": "^0.15.15"
+  }
+}
