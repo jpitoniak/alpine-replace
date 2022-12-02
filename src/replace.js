@@ -1,35 +1,34 @@
 export default function (Alpine) {
-    Alpine.directive("replace", (el, {value, modifiers, expression}, {evaluate,  evaluateLater, effect}) => {
-        let getTemplate
-        if(value == "dynamic") {
-            // expression contains Javascript code to be evaluated
-            getTemplate = evaluateLater(expression)
+    Alpine.directive("replace", (el, { value, modifiers, expression }, { evaluateLater, effect }) => {
+        if (value == "dynamic") {
+            let getTemplate = evaluateLater(expression)
+
+            effect(() => {
+                getTemplate((expression) => {
+                    let template = expression
+
+                    if (template instanceof HTMLElement && template.tagName == "TEMPLATE") {
+                        let content = template.content.cloneNode(true);
+                        el.replaceChildren(content)
+                    }
+                    else if (typeof template == "string") {
+                        let templateElement = document.querySelector("template#" + expression)
+
+                        if (templateElement) {
+                            let content = templateElement.content.cloneNode(true);
+                            el.replaceChildren(content)
+                        }
+                    }
+                });
+            });
         }
         else {
-            // expression is a sting containing the id of the template
-            getTemplate = evaluateLater("\"" + expression + "\"")
+            let template = document.querySelector("template#" + expression)
+
+            if (template) {
+               let content = template.content.cloneNode(true)
+               el.replaceChildren(content);
+            }
         }
-
-        // TODO: modifier checking and testing
-
-        effect(() => {
-            getTemplate(template => {
-                let templateElement
-                if(typeof template == string) {
-                    // template is a string, try to get a template element with the given id
-                    templateElement = document.querySelector('template#' + template)
-                }
-                if(template instanceof HTMLElement && template.tagname == 'TEMPLATE') {
-                    // we already have a reference to the element
-                    templateElement = template
-                }
-
-                if(templateElement) {
-                    // a matching template element was found
-                    let content = templateElement.content.cloneNode(true)
-                    el.replaceChildren(content)
-                }
-            })
-        });
-    });
+    })
 }
